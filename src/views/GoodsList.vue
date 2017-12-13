@@ -1,77 +1,31 @@
 <template>
     <div>
-        <header class="header">
-            <symbol id="icon-cart" viewBox="0 0 38 32">
-                <title>cart</title>
-                <path class="path1"
-                      d="M37.759 0h-4.133c-0.733 0.004-1.337 0.549-1.434 1.255l-0.546 4.342c-0.081 0.484-0.496 0.849-0.997 0.849-0.005 0-0.009-0-0.014-0h-27.604c-0.003 0-0.007-0-0.011-0-1.674 0-3.031 1.357-3.031 3.031 0 0.34 0.056 0.666 0.159 0.971l2.52 8.062c0.385 1.194 1.486 2.043 2.785 2.043 0.126 0 0.25-0.008 0.372-0.023l22.983 0.002c0.515 0.131 0.626 0.768 0.626 1.283 0.005 0.044 0.009 0.095 0.009 0.146 0 0.501-0.294 0.933-0.718 1.134l-22.439 0.003c-0.354 0-0.642 0.287-0.642 0.642s0.287 0.642 0.642 0.642h22.745l0.131-0.071c0.919-0.392 1.551-1.287 1.551-2.33 0-0.058-0.002-0.116-0.006-0.173 0.021-0.108 0.033-0.24 0.033-0.376 0-1.072-0.732-1.973-1.724-2.23l-23.357-0.004c-0.063 0.008-0.135 0.013-0.209 0.013-0.719 0-1.332-0.455-1.566-1.093l-2.53-8.095c-0.048-0.154-0.076-0.332-0.076-0.515 0-0.973 0.782-1.764 1.752-1.778h27.657c1.159-0.004 2.112-0.883 2.232-2.011l0.547-4.345c0.010-0.083 0.078-0.147 0.161-0.152l4.133-0c0.354 0 0.642-0.287 0.642-0.642s-0.287-0.642-0.642-0.642z"></path>
-                <path class="path2"
-                      d="M31.323 9.69c-0.022-0.003-0.048-0.004-0.074-0.004-0.328 0-0.598 0.248-0.633 0.567l-0.809 7.268c-0.003 0.022-0.004 0.048-0.004 0.074 0 0.328 0.248 0.598 0.567 0.633l0.074 0c0.001 0 0.003 0 0.004 0 0.327 0 0.596-0.246 0.632-0.563l0.809-7.268c0.003-0.022 0.004-0.048 0.004-0.074 0-0.328-0.248-0.598-0.567-0.633z"></path>
-                <path class="path3"
-                      d="M27.514 25.594c-1.769 0-3.203 1.434-3.203 3.203s1.434 3.203 3.203 3.203c1.769 0 3.203-1.434 3.203-3.203s-1.434-3.203-3.203-3.203zM27.514 30.717c-1.060 0-1.92-0.86-1.92-1.92s0.86-1.92 1.92-1.92c1.060 0 1.92 0.86 1.92 1.92s-0.86 1.92-1.92 1.92z"></path>
-                <path class="path4"
-                      d="M9.599 25.594c-1.769 0-3.203 1.434-3.203 3.203s1.434 3.203 3.203 3.203c1.769 0 3.203-1.434 3.203-3.203s-1.434-3.203-3.203-3.203zM9.599 30.717c-1.060 0-1.92-0.86-1.92-1.92s0.86-1.92 1.92-1.92c1.060 0 1.92 0.86 1.92 1.92s-0.86 1.92-1.92 1.92z"></path>
-            </symbol>
-            <div class="navbar">
-                <div class="navbar-left-container">
-                    <a href="/">
-                        <img class="navbar-brand-logo" src="static/logo.png"></a>
-                </div>
-                <div class="navbar-right-container" style="display: flex;">
-                    <div class="navbar-menu-container">
-                        <!--<a href="/" class="navbar-link">我的账户</a>-->
-                        <span class="navbar-link"></span>
-                        <a href="javascript:void(0)" class="navbar-link">Login</a>
-                        <a href="javascript:void(0)" class="navbar-link">Logout</a>
-                        <div class="navbar-cart-container">
-                            <span class="navbar-cart-count"></span>
-                            <a class="navbar-link navbar-cart-link" href="/#/cart">
-                                <svg class="navbar-cart-logo">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div class="nav-breadcrumb-wrap">
-            <div class="container">
-                <nav class="nav-breadcrumb">
-                    <a href="/">Home</a>
-                    <span>Goods</span>
-                </nav>
-            </div>
-        </div>
+        <nav-header></nav-header>
+        <nav-bread>
+            <span>Goods</span>
+        </nav-bread>
         <div class="accessory-result-page accessory-page">
             <div class="container">
                 <div class="filter-nav">
                     <span class="sortby">Sort by:</span>
-                    <a href="javascript:void(0)" class="default cur">Default</a>
-                    <a href="javascript:void(0)" class="price">Price
-                        <svg class="icon icon-arrow-short">
-                            <use xlink:href="#icon-arrow-short"></use>
+                    <a href="javascript:;" class="default cur">Default</a>
+                    <a href="javascript:;" class="price" @click="sortGoods">Price
+                        <svg class="icon icon-arrow-short" :class="{'sort-up':!sortFlag}">
+                            <use xlink:href="/static/svg.svg#icon-arrow-short"></use>
                         </svg>
                     </a>
-                    <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+                    <a href="javascript:;" class="filterby stopPop">Filter by</a>
                 </div>
                 <div class="accessory-result">
                     <!-- filter -->
-                    <div class="filter stopPop" id="filter">
+                    <div id="filter" class="filter stopPop" :class="{'filterby-show':filterBy}">
                         <dl class="filter-price">
                             <dt>Price:</dt>
-                            <dd><a href="javascript:void(0)">All</a></dd>
-                            <dd>
-                                <a href="javascript:void(0)">0 - 100</a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:void(0)">100 - 500</a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:void(0)">500 - 1000</a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:void(0)">1000 - 2000</a>
+                            <dd><a href="javascript:;" :class="{'cur':priceChecked == 'all'}"
+                                   @click="setPriceFilter('all')">All</a></dd>
+                            <dd v-for="(price, index) in priceFilter">
+                                <a href="javascript:;" :class="{'cur':priceChecked == index}"
+                                   @click="setPriceFilter(index)">{{price.startPrice}} - {{price.endPrice}}</a>
                             </dd>
                         </dl>
                     </div>
@@ -95,65 +49,178 @@
                                     </div>
                                 </li>
                             </ul>
+                            <div class="load-more" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy"
+                                 infinite-scroll-distance="10">
+                                <img src="./../assets/loading-spinning-bubbles.svg" alt="" v-if="loading">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="footer">
-            <div class="footer__wrap">
-                <div class="footer__secondary">
-                    <div class="footer__inner">
-                        <div class="footer__region">
-                            <span>Region</span>
-                            <select class="footer__region__select">
-                                <option value="en-US">USA</option>
-                                <option value="zh-CN">China</option>
-                                <option value="in">India</option>
-                            </select>
-                        </div>
-                        <div class="footer__secondary__nav">
-                            <span>Copyright © 2017 IMooc All Rights Reserved.</span>
-                            <a href="http://us.lemall.com/us/aboutUs.html">
-                                About Us
-                            </a>
-                            <a href="http://us.lemall.com/us/termsofUse.html">
-                                Terms &amp; Conditions
-                            </a>
-                            <a href="http://us.lemall.com/us/privacyPolicy.html">
-                                Privacy Policy
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        <modal :mdShow="mdShow" @close="closeModal">
+            <p slot="message">请先登录后再加入购物车</p>
+            <div slot="btnGroup">
+                <a href="javascript:;" class="btn btn--m" @click="mdShow=false">关闭</a>
             </div>
-        </footer>
+        </modal>
+        <modal :mdShow="mdShowCart" @close="closeModal">
+            <p slot="message">
+                <svg class="icon-status-ok">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-status-ok"></use>
+                </svg>
+                <span>加入购物车成功!</span>
+            </p>
+            <div slot="btnGroup">
+                <a href="javascript:;" class="btn btn--m" @click="mdShowCart=false">继续购物</a>
+                <router-link href="javascript:;" class="btn btn--red" to="/cart">查看购物车</router-link>
+            </div>
+        </modal>
+        <nav-footer></nav-footer>
     </div>
 </template>
 <script>
+    import NavHeader from "@/components/NavHeader"
+    import NavFooter from '@/components/NavFooter'
+    import NavBread from '@/components/NavBread'
+    import Modal from '@/components/Modal'
+
     import axios from 'axios'
 
     export default {
         data() {
             return {
                 goodsList: [],
+                mdShow: false,
+                mdShowCart: false,
+                sortFlag: false,
+                page: 1,
+                pageSize: 8,
+                // 滚动加载标识
+                busy: false,
+                loading: false,
+                // 价格过滤
+                priceFilter: [
+                    {
+                        startPrice: "0.00",
+                        endPrice: "100.00"
+                    },
+                    {
+                        startPrice: "100.00",
+                        endPrice: "500.00"
+                    },
+                    {
+                        startPrice: "500.00",
+                        endPrice: "1000.00"
+                    },
+                    {
+                        startPrice: "1000.00",
+                        endPrice: "5000.00"
+                    }
+                ],
+                priceChecked: 'all',
+                filterBy: false,
             }
         },
         created() {
             this.getGoodsList();
         },
         methods: {
-            getGoodsList() {
-                axios.get("/goods").then((res) => {
+            // 获取物品列表
+            getGoodsList(flag) {
+                var vm = this;
+                var params = {
+                    page: vm.page,
+                    pageSize: vm.pageSize,
+                    sort: vm.sortFlag ? -1 : 1,
+                    priceLevel: vm.priceChecked,
+                }
+
+                this.loading = true;
+
+                axios.get("/goods", {
+                    params: params,
+                }).then((res) => {
                     var data = res.data;
                     if (data.status == "0") {
-                        this.goodsList = data.list;
+                        if (flag) {
+                            this.goodsList = this.goodsList.concat(data.data.list);
+
+                            if (data.data.count != this.pageSize) {
+                                this.busy = true;
+                            } else {
+                                this.busy = false;
+                            }
+                        } else {
+                            this.goodsList = data.data.list;
+                            this.busy = false;
+                        }
+                    } else {
+                        this.goodsList = [];
+                    }
+
+                    this.loading = false;
+                })
+            },
+            // 排序方式修改
+            sortGoods() {
+                this.sortFlag = !this.sortFlag;
+                this.page = 1;
+                this.getGoodsList();
+            },
+            // 价格过滤
+            setPriceFilter(index) {
+                this.priceChecked = index;
+                this.page = 1;
+                this.getGoodsList();
+            },
+            // 下拉滚动
+            loadMore() {
+                this.busy = true;
+                setTimeout(() => {
+                    this.page++;
+                    this.getGoodsList(true);
+                }, 500)
+            },
+            addCart(productId) {
+                axios.post("/goods/addCart", {
+                    productId: productId
+                }).then((res) => {
+                    var res = res.data;
+                    if (res.status == "0") {
+                        console.log("成功");
+                    } else {
+                        console.log("失败");
                     }
                 })
             },
-            addCart() {
-
-            }
+            closeModal() {
+                this.mdShow = false;
+                this.mdShowCart = false;
+            },
+        },
+        components: {
+            NavHeader,
+            NavFooter,
+            NavBread,
+            Modal
         }
     }
 </script>
+<style>
+    .btn {
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .load-more {
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    .sort-up {
+        transform: rotate(180deg);
+        transition: all .3s ease-out;
+    }
+</style>

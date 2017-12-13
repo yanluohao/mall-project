@@ -8,10 +8,15 @@ import VueLazyload from 'vue-lazyload'
 import infiniteScroll from 'vue-infinite-scroll'
 import {currency} from './util/currency'
 
+import './assets/css/base.css'
+import './assets/css/checkout.css'
+import './assets/css/login.css'
+import './assets/css/product.css'
+
 Vue.use(infiniteScroll);
 Vue.use(Vuex);
 Vue.use(VueLazyload, {
-    loading: 'static/loading-svg/loading-bars.svg',
+    loading: 'static/loading-svg/loading-bubbles.svg',
     try: 3 // default 1
 })
 

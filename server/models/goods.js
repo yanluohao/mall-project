@@ -1,7 +1,6 @@
 let mongoose = require("mongoose");
-let Schema = mongoose.Schema;
 
-var productSchema = new Schema({
+let productSchema = new mongoose.Schema({
     "productId": String,
     "productName": String,
     "salePrice": Number,
