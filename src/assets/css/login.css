@@ -138,7 +138,8 @@ a {
     margin-top: 30px;
 }
 
-.md-content .btn-login {
+.md-content .btn-login,
+.md--content .btn-login {
     display: block;
     height: 38px;
     line-height: 38px;
@@ -157,9 +158,8 @@ a {
 .error-wrap .error {
     font-size: 12px;
     color: #d31723;
-    visibility: hidden;
     display: block;
-    padding: 0 0 7px 17px;
+    padding: 0 0 20px 17px;
     line-height: 16px;
     height: 16px;
     text-align: left;
