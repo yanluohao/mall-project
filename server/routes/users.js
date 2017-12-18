@@ -349,9 +349,13 @@ router.post("/payMent", function (req, res, next) {
                 orderStatus: "1",
                 createDate: createDate,
             }
-            user.orderList.push(order);
-            console.log(user.orderList);
-            // user.orderList = user.orderList.push(order);
+
+            var list = user.orderList;
+            list.push(order);
+            user.orderList = list;
+
+            // 这个本人也很无奈，注释语句执行报错，改成上面的就好了
+            // user.orderList.push(order);
             user.save(function (err2, doc2) {
                 if (err2) {
                     res.json({
