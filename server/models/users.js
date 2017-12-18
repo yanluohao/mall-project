@@ -15,14 +15,14 @@ let userSchema = new mongoose.Schema({
         }
     ],
     'addressList': [
-        // {
-        //     'addressId': String,
-        //     'userName': String,
-        //     'streetName': String,
-        //     'postCode': Number,
-        //     'tel': Number,
-        //     'isDefault': Boolean,
-        // }
+        {
+            'addressId': String,
+            'userName': String,
+            'streetName': String,
+            'postCode': Number,
+            'tel': Number,
+            'isDefault': Boolean,
+        }
     ]
 });
 

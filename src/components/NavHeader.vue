@@ -79,12 +79,12 @@
                 userName: '',
                 userPwd: '',
                 errorTip: false,
-                loginModalFlag: true,
+                loginModalFlag: false,
                 nickName: "",
             }
         },
         created() {
-
+            this.checkLogin();
         },
         methods: {
             login() {
@@ -101,6 +101,7 @@
                         this.errorTip = false;
                         this.nickName = res.result.userName;
                         this.loginModalFlag = false;
+                        window.location.reload(true);
                     } else {
                         this.errorTip = true;
                     }
@@ -111,9 +112,23 @@
                     var res = res.data;
                     if (res.status == "0") {
                         this.nickName = "";
+                        window.location.reload(true);
                     }
                 })
-            }
+            },
+            // checkLogin
+            checkLogin() {
+                axios.get("/users/checkLogin").then((res) => {
+                    let data = res.data;
+                    if(data.status == "0") {
+                        this.nickName = data.result.userName;
+                        console.log("已登录");
+                    }else {
+                        this.loginModalFlag = true;
+                        console.log("未登录");
+                    }
+                })
+            },
         }
     }
 </script>

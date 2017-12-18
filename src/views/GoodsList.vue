@@ -188,9 +188,9 @@
                 }).then((res) => {
                     var res = res.data;
                     if (res.status == "0") {
-                        console.log("成功");
+                        this.mdShowCart = true;
                     } else {
-                        console.log("失败");
+                        this.mdShow = true;
                     }
                 })
             },
@@ -207,7 +207,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .btn {
         height: 40px;
         line-height: 40px;
