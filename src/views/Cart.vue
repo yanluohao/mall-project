@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
                                 <div class="cart-tab-2">
-                                    <div class="item-price">{{(item.salePrice) | currency('$')}}</div>
+                                    <div class="item-price">{{(item.salePrice) | currency('￥')}}</div>
                                 </div>
                                 <div class="cart-tab-3">
                                     <div class="item-quantity">
@@ -92,13 +92,13 @@
                                 </div>
                                 <div class="cart-tab-4">
                                     <div class="item-price-total">
-                                        {{(item.salePrice * item.productNum) | currency('$')}}
+                                        {{(item.salePrice * item.productNum) | currency('￥')}}
                                     </div>
                                 </div>
                                 <div class="cart-tab-5">
                                     <div class="cart-item-opration">
                                         <a href="javascript:;" class="item-edit-btn"
-                                           @click="delCartConfirm(item.productId)">
+                                           @click="delCartConfirm(item)">
                                             <svg class="icon icon-del">
                                                 <use xlink:href="#icon-del"></use>
                                             </svg>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="cart-foot-r">
                             <div class="item-total">
-                                Item total:<span class="total-price">{{totalPrice | currency('$')}}</span>
+                                Item total:<span class="total-price">{{totalPrice | currency('￥')}}</span>
                             </div>
                             <div class="btn-wrap">
                                 <a href="javascript:;" class="btn btn--red" :class="{'btn--dis':checkedCount==0}"
@@ -163,7 +163,7 @@
         data() {
             return {
                 cartList: [],
-                productId: "",
+                delItem: "",
                 modalConfirm: false,
             }
         },
@@ -178,14 +178,14 @@
             checkedCount() {
                 var i = 0;
                 this.cartList.forEach((item) => {
-                    if(item.checked == "1") i++;
+                    if (item.checked == "1") i++;
                 })
                 return i;
             },
             totalPrice() {
                 var money = 0;
                 this.cartList.forEach((item) => {
-                    if(item.checked == "1") {
+                    if (item.checked == "1") {
                         money += Number(item.salePrice) * Number(item.productNum);
                     }
                 })
@@ -214,9 +214,16 @@
 
                 axios.post("/users/cart/edit", {
                     product: item,
-                }, (res) => {
+                }).then((res) => {
                     var res = res.data;
                     this.init();
+                    var num = 0;
+                    if (flag == "add") {
+                        num = 1;
+                    } else if (flag == "minus") {
+                        num = -1;
+                    }
+                    this.$store.commit("updateCartCount", num);
                 })
             },
             toggleCheckAll() {
@@ -234,7 +241,7 @@
                 })
             },
             checkOut() {
-                if(this.checkedCount > 0) {
+                if (this.checkedCount > 0) {
                     this.$router.push({
                         path: "/address",
                     });
@@ -245,18 +252,20 @@
                 this.modalConfirm = false;
             },
             // 购物车删除操作
-            delCartConfirm(id) {
+            delCartConfirm(item) {
                 this.modalConfirm = true;
-                this.productId = id;
+                this.delItem = item;
             },
             delCart() {
                 axios.post("/users/cart/del", {
-                    productId: this.productId
+                    productId: this.delItem.productId
                 }).then((res) => {
                     var res = res.data;
                     if (res.status == "0") {
                         this.modalConfirm = false;
                         this.init();
+                        var num = 0 - Number(this.delItem.productNum);
+                        this.$store.commit("updateCartCount", num);
                     }
                 })
             }

@@ -22,11 +22,27 @@ Vue.use(VueLazyload, {
 
 Vue.filter("currency", currency);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+const store = new Vuex.Store({
+    state: {
+        cartCount: 0,
+    },
+    mutations: {
+        initCartCount(state, num) {
+            state.cartCount = num;
+
+        },
+        updateCartCount(state, num) {
+            state.cartCount += Number(num);
+        }
+    }
+})
 
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
+    store,
     router,
     template: '<App/>',
     components: {App}

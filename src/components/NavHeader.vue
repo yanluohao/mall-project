@@ -23,7 +23,7 @@
                     <a href="javascript:;" class="navbar-link" @click="loginModalFlag=true" v-if="!nickName">Login</a>
                     <a href="javascript:;" class="navbar-link" @click="logout" v-if="nickName">Logout</a>
                     <div class="navbar-cart-container">
-                        <span class="navbar-cart-count"></span>
+                        <span class="navbar-cart-count" v-show="cartCount > 0">{{cartCount}}</span>
                         <a class="navbar-link navbar-cart-link" href="/#/cart">
                             <svg class="navbar-cart-logo">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
@@ -86,6 +86,11 @@
         created() {
             this.checkLogin();
         },
+        computed: {
+            cartCount: function () {
+                return this.$store.state.cartCount;
+            }
+        },
         methods: {
             login() {
                 if (!this.userName || !this.userPwd) {
@@ -101,7 +106,7 @@
                         this.errorTip = false;
                         this.nickName = res.result.userName;
                         this.loginModalFlag = false;
-                        window.location.reload(true);
+                        this.getCartCount();
                     } else {
                         this.errorTip = true;
                     }
@@ -112,7 +117,7 @@
                     var res = res.data;
                     if (res.status == "0") {
                         this.nickName = "";
-                        window.location.reload(true);
+                        this.$store.commit("initCartCount", 0);
                     }
                 })
             },
@@ -123,12 +128,22 @@
                     if(data.status == "0") {
                         this.nickName = data.result.userName;
                         console.log("已登录");
+                        this.getCartCount();
                     }else {
                         this.loginModalFlag = true;
                         console.log("未登录");
+                        this.$store.commit("initCartCount", 0);
                     }
                 })
             },
+            getCartCount() {
+                axios.get("/users/getCartCount").then((res) => {
+                    var res = res.data;
+                    if(res.status == "0") {
+                        this.$store.commit("initCartCount", res.result);
+                    }
+                })
+            }
         }
     }
 </script>
