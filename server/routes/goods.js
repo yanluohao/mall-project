@@ -109,9 +109,22 @@ router.post("/addCart", (req, res, next) => {
                         })
                     } else {
                         if (productDoc) {
-                            productDoc.productNum = 1;
-                            productDoc.checked = 1;
-                            userDoc.cartList.push(productDoc);
+                            var list = userDoc.cartList,
+                                isNew = true;
+                            list.map((item)=> {
+                                if(item.productId == productId) {
+                                    isNew = false;
+                                    item.productNum = Number(item.productNum) + 1;
+                                    return;
+                                }
+                            })
+
+                            if(isNew) {
+                                productDoc.productNum = 1;
+                                productDoc.checked = 1;
+                                userDoc.cartList.push(productDoc);
+                            }
+
                             userDoc.save((err, doc) => {
                                 if (err) {
                                     res.json({

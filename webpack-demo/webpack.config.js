@@ -4,12 +4,14 @@ var HtmlwebpackPlugin = require('html-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     // 多个js入口
     entry: {
         bundle1: './main1.js',
         bundle2: './main2.js',
+        vendor: ['jquery'],
     },
     output: {
         // 多个输出,且输出到dist文件夹下。
@@ -68,14 +70,19 @@ module.exports = {
             inject: "body",
             favicon: "",
             // chunks 选项的作用主要是针对多入口(entry)文件。默认引用所有，可指定引入js
-            chunks: ['index'],
+            chunks: ['index', 'vendor'],
+            // html压缩
+            minify: {
+                // 移除注释
+                removeComments: true,
+            }
         }),
         new HtmlwebpackPlugin({
             // 生成前指定的模板html
             template: "./src/cart.html",
             // 生成后的html文件名
             filename: 'cart.html',
-            chunks: ['cart'],
+            chunks: ['cart', 'vendor'],
         }),
         // run的时候自动打开浏览器页面的地址
         new OpenBrowserPlugin({
@@ -85,12 +92,14 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         // 提取公共模块
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors', // 公共模块的名称
-            chunks: chunks,  // chunks是需要提取的模块
+            name: 'vendor', // 公共模块的名称
+            chunks: ["index", "cart"],  // chunks是需要提取的模块
             minChunks: chunks.length
         }),
         // 配置提取出的样式文件
-        new ExtractTextPlugin('css/[name].css')
+        new ExtractTextPlugin('css/[name].css'),
+        //
+        new CleanWebpackPlugin(),
     ],
     externals: {
         // 将变量data变为全局都能访问的变量
