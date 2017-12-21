@@ -1,6 +1,7 @@
 # mall-project
 
-> A Vue.js and node express project
+> 基于Vue全家桶，node(express框架)和mongodb的project
+    
 
 ## Build Setup
 
