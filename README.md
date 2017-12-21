@@ -1,6 +1,6 @@
 # mall-project
 
-> A Vue.js project
+> A Vue.js and node express project
 
 ## Build Setup
 
